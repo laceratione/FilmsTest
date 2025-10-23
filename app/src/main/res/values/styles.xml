@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="headerStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:visibility">gone</item>
+        <item name="android:paddingHorizontal">16dp</item>
+        <item name="android:paddingVertical">8dp</item>
+        <item name="android:fontFamily">@font/roboto_bold</item>
+        <item name="android:letterSpacing">0.005</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="roundedImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/corner_radius</item>
+    </style>
+
+    <style name="snackbarText">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="fontFamily">@font/roboto_regular</item>
+    </style>
+
+    <style name="snackbarAction">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#FFC967</item>
+        <item name="fontFamily">@font/roboto_medium</item>
+    </style>
+</resources>

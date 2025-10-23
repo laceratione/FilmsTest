@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">FilmsTest</string>
+    <string name="error_load_msg">Ошибка подключения сети</string>
+    <string name="no_results_search">Результатов не найдено</string>
+    <string name="title_fragment_film_list">Фильмы</string>
+    <string name="title_fragment_film_detail">Подробная информация</string>
+    <string name="genres">Жанры</string>
+    <string name="films">Фильмы</string>
+    <string name="image_view_description">Постер фильма</string>
+    <string name="genre_year_format">%1$s, %2$d год</string>
+    <string name="just_year_format">%d год</string>
+    <string name="rating_format">%1$s</string>
+    <string name="service_name">КиноПоиск</string>
+    <string name="repeat">ПОВТОРИТЬ</string>
+</resources>
