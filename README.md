@@ -21,7 +21,7 @@ ___
   <img src="https://github.com/user-attachments/assets/72785774-175e-492e-a0c2-77640ef12c28" width="250" height="500">
 </h1>
 
-После успешной загрузки отображается:
+После успешной загрузки отображаются:
 - заголовок Жанры
 - список жанров, отсортированный по алфавиту
 - заголовок Фильмы
@@ -30,13 +30,13 @@ ___
 - название фильма занимает не более двух строк, в противном случае в конце добавляется многоточие
 - по умолчанию никакой жанр не выбран
 <h1 align="center">
-  <img src="https://github.com/user-attachments/assets/cb6406a0-4c21-4619-af7d-7cfb1df8f4f6" width="250" height="500">
+  <img src="https://github.com/user-attachments/assets/023c5a0e-4232-44e0-8f9b-e4a3c51993f3" width="250" height="500">
 </h1>
 
 Далее:
 - при выборе жанра он выделяется цветом, при повторном нажатии выделение снимается и показывается весь список фильмов
 <h1 align="center">
-  <img src="https://github.com/user-attachments/assets/dc073ab4-9f81-446c-9f08-d1a6cb218d4c" width="250" height="500">
+  <img src="https://github.com/user-attachments/assets/250c996f-c99d-45f7-b3f5-3524df9466f2" width="250" height="500">
 </h1>
 
 - при нажатии на фильм открывается экран с подробной информацией
@@ -51,7 +51,7 @@ ___
 - рейтинг
 - описание
 <h1 align="center">
-  <img src="https://github.com/user-attachments/assets/5bf34ff8-53be-468e-b63c-85e2f5575273" width="250" height="500">
+  <img src="https://github.com/user-attachments/assets/e7e1333d-92c7-4295-bdb1-0505bd9e946d" width="250" height="500">
 </h1>
 
 ___
@@ -65,6 +65,7 @@ ___
 - Clean Architecture
 - Navigation Architecture Component
 - XML
+- Glide
 ___
 
 
