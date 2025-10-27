@@ -15,6 +15,7 @@ ___
 <h1 align="center">
   <img src="https://github.com/user-attachments/assets/5b9cdff2-68f0-4816-9c0b-633c24a4e4d8" width="250" height="500">
 </h1>
+
 - если данные не удалось загрузить, то показывается всплывающее сообщение
 <h1 align="center">
   <img src="https://github.com/user-attachments/assets/72785774-175e-492e-a0c2-77640ef12c28" width="250" height="500">
@@ -31,11 +32,13 @@ ___
 <h1 align="center">
   <img src="https://github.com/user-attachments/assets/cb6406a0-4c21-4619-af7d-7cfb1df8f4f6" width="250" height="500">
 </h1>
+
 Далее:
 - при выборе жанра он выделяется цветом, при повторном нажатии выделение снимается и показывается весь список фильмов
 <h1 align="center">
   <img src="https://github.com/user-attachments/assets/dc073ab4-9f81-446c-9f08-d1a6cb218d4c" width="250" height="500">
 </h1>
+
 - при нажатии на фильм открывается экран с подробной информацией
 
 ___
