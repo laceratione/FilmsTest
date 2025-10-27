@@ -13,12 +13,12 @@ ___
 - шапка содержит заголовок Фильмы
 - во время загрузки отображается индикатор
 <h1 align="center">
-  <img src="https://github.com/user-attachments/assets/5b9cdff2-68f0-4816-9c0b-633c24a4e4d8" width="250" height="500">
+  <img src="https://github.com/user-attachments/assets/00530244-994c-4182-b2b0-63abab5aee6a" width="250" height="500">
 </h1>
 
 - если данные не удалось загрузить, то показывается всплывающее сообщение
 <h1 align="center">
-  <img src="https://github.com/user-attachments/assets/72785774-175e-492e-a0c2-77640ef12c28" width="250" height="500">
+  <img src="https://github.com/user-attachments/assets/140d9456-d0a4-44d5-ade4-13312bfa1331" width="250" height="500">
 </h1>
 
 После успешной загрузки отображаются:
