@@ -2,7 +2,6 @@ package ru.example.kolsatest.presentation.filmlist
 
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
@@ -11,6 +10,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import ru.example.kolsatest.R
+import ru.example.kolsatest.databinding.ListItemFilmBinding
 import ru.example.kolsatest.domain.model.Film
 
 private const val TAG = "FilmAdapter"
@@ -22,8 +22,8 @@ class FilmAdapter(
         parent: ViewGroup,
         viewType: Int
     ): FilmAdapter.FilmHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_film, parent, false)
-        return FilmHolder(view)
+        val binding = ListItemFilmBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return FilmHolder(binding)
     }
 
     override fun onBindViewHolder(holder: FilmAdapter.FilmHolder, position: Int) {
@@ -31,10 +31,10 @@ class FilmAdapter(
         holder.bind(item)
     }
 
-    inner class FilmHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class FilmHolder(binding: ListItemFilmBinding) : RecyclerView.ViewHolder(binding.root) {
         private val context = itemView.context
-        private val imageView: ImageView = view.findViewById(R.id.imageView)
-        private val titleTextView: TextView = view.findViewById(R.id.tv_title)
+        private val imageView: ImageView = binding.imageView
+        private val titleTextView: TextView = binding.tvTitle
 
         fun bind(film: Film) {
             try {

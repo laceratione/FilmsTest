@@ -2,12 +2,12 @@ package ru.example.kolsatest.presentation.filmlist
 
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import ru.example.kolsatest.R
+import ru.example.kolsatest.databinding.ListItemGenreBinding
 
 private const val TAG = "GenreAdapter"
 
@@ -22,9 +22,8 @@ class GenreAdapter(
         parent: ViewGroup,
         viewType: Int
     ): GenreAdapter.GenreHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.list_item_genre, parent, false)
-        return GenreHolder(view)
+        val binding = ListItemGenreBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return GenreHolder(binding)
     }
 
     override fun onBindViewHolder(holder: GenreAdapter.GenreHolder, position: Int) {
@@ -40,9 +39,9 @@ class GenreAdapter(
         notifyDataSetChanged()
     }
 
-    inner class GenreHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class GenreHolder(binding: ListItemGenreBinding) : RecyclerView.ViewHolder(binding.root) {
         private val context = itemView.context
-        private val genreTextView: TextView = view.findViewById(R.id.tvGenre)
+        private val genreTextView: TextView = binding.tvGenre
 
         init {
             itemView.background = ContextCompat.getDrawable(context, R.drawable.genre_item_selector)
