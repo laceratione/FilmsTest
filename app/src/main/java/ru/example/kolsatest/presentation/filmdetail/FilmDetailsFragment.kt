@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import dagger.hilt.android.AndroidEntryPoint
 import ru.example.kolsatest.R
 import ru.example.kolsatest.databinding.FragmentFilmDetailsBinding
@@ -22,7 +23,6 @@ class FilmDetailsFragment : Fragment() {
     private val viewModel: FilmDetailsViewModel by viewModels()
     private val args: FilmDetailsFragmentArgs by navArgs()
     private var binding: FragmentFilmDetailsBinding? = null
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,7 +47,7 @@ class FilmDetailsFragment : Fragment() {
         try {
             binding?.apply {
                 viewModel.film?.let {
-                    loadImage(it, imageView)
+                    loadImage(it.imageUrl, imageView)
                     tvTitle.setText(it.localizedName)
                     tvGenreAndYear.setText(getGenreAndYear(it))
 
@@ -65,11 +65,11 @@ class FilmDetailsFragment : Fragment() {
         }
     }
 
-    private fun loadImage(film: Film, imageView: ImageView) {
+    private fun loadImage(imageUrl: String?, imageView: ImageView) {
         Glide.with(requireContext())
-            .load(film.imageUrl)
+            .load(imageUrl)
             .error(R.drawable.placeholder_image)
-            .centerCrop()
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(imageView)
     }
 
