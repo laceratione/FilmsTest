@@ -19,3 +19,54 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+## org.slf4j.LoggerFactory  ----------
+-dontwarn org.slf4j.LoggerFactory
+
+-keep class com.google.gson.** { *; }
+-keep public class * implements java.lang.reflect.Type
+
+-keepclassmembers,allowobfuscation class * {
+  @com.google.gson.annotations.SerializedName <fields>;
+}
+
+-keep class * extends com.google.gson.TypeAdapter
+-keep class * implements com.google.gson.TypeAdapterFactory
+-keep class * implements com.google.gson.JsonSerializer
+-keep class * implements com.google.gson.JsonDeserializer
+
+-keep,allowobfuscation,allowshrinking class com.google.gson.reflect.TypeToken
+-keep,allowobfuscation,allowshrinking class * extends com.google.gson.reflect.TypeToken
+
+-keep class java.**,javax.**,com.sun.**,android.** {
+   static final %                *;
+   static final java.lang.String *;
+  *;
+}
+
+-keepattributes Signature
+
+-keep class ru.example.kolsatest.data.model.** { *; }
+-keep class ru.example.kolsatest.domain.model.** { *; }
+
+-renamesourcefileattribute SourceFile
+-keepattributes SourceFile,LineNumberTable
+
+-keepattributes Signature, RuntimeVisibleAnnotations, RuntimeVisibleParameterAnnotations
+
+-keepclassmembers class ru.example.kolsatest.data.model.** {
+    public <init>();
+}
+
+-keepclassmembers class ru.example.kolsatest.domain.model.** {
+    public <init>();
+}
+
+-keep class * extends com.google.gson.reflect.TypeToken { *; }
+
+-keep class kotlinx.coroutines.** { *; }
+-keep class kotlin.coroutines.** { *; }
+
+-keep class * extends androidx.navigation.NavController {
+    public <init>(...);
+}
