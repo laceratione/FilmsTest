@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import ru.example.kolsatest.R
 import ru.example.kolsatest.databinding.ListItemFilmBinding
 import ru.example.kolsatest.domain.model.Film
@@ -38,7 +39,7 @@ class FilmAdapter(
 
         fun bind(film: Film) {
             try {
-                loadImage(film)
+                loadImage(film.imageUrl)
                 titleTextView.setText(film.localizedName)
 
                 itemView.setOnClickListener {
@@ -49,10 +50,12 @@ class FilmAdapter(
             }
         }
 
-        private fun loadImage(film: Film) {
+        private fun loadImage(imageUrl: String?) {
             Glide.with(context)
-                .load(film.imageUrl)
+                .load(imageUrl)
+                .sizeMultiplier(0.6f)
                 .error(R.drawable.placeholder_image)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imageView)
         }
     }
