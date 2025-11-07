@@ -1,6 +1,7 @@
 package ru.example.kolsatest.presentation.filmlist
 
 import ru.example.kolsatest.domain.model.Film
+import ru.example.kolsatest.presentation.MainListItem
 
 sealed class FilmState {
     class Empty : FilmState()

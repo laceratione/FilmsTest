@@ -1,5 +1,6 @@
 package ru.example.kolsatest.presentation.filmlist
 
+import android.os.Parcelable
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,6 +11,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import ru.example.kolsatest.domain.model.Film
 import ru.example.kolsatest.domain.repository.FilmRepository
+import ru.example.kolsatest.presentation.mapper.FilmListMapper
 import javax.inject.Inject
 
 private const val TAG = "FilmListViewModel"
@@ -21,14 +23,13 @@ class FilmListViewModel @Inject constructor(
     private val _films: MutableStateFlow<FilmState> = MutableStateFlow(FilmState.Loading())
     val films: StateFlow<FilmState> = _films.asStateFlow()
 
-    private val _genres = MutableStateFlow<List<String>>(emptyList())
-    val genres = _genres.asStateFlow()
+    private var _genres = emptyList<String>()
+    val genres: List<String> get() = _genres
+
+    private var _selectedGenre = ""
+    val selectedGenre get() = _selectedGenre
 
     private val _filmsOriginal = mutableListOf<Film>()
-    var currentFilter: String? = null
-        private set
-    var selectedPosition = -1
-    var scrollPosition = 0
 
     init {
         loadFilms()
@@ -44,8 +45,8 @@ class FilmListViewModel @Inject constructor(
                         val data = result.getOrDefault(emptyList()).sortedBy { it.localizedName }
                         _filmsOriginal.clear()
                         _filmsOriginal.addAll(data)
-                        _films.value = FilmState.Success(data)
                         setupGenres(data)
+                        _films.value = FilmState.Success(data)
                     }
 
                     result.isFailure -> {
@@ -64,14 +65,14 @@ class FilmListViewModel @Inject constructor(
         films.forEach {
             it.genres.isNotEmpty().apply { set.addAll(it.genres) }
         }
-        _genres.value = set.toList().sortedBy { it }
+        _genres = set.toList().sortedBy { it }
     }
 
-    fun filtering(genre: String, pos: Int) {
+
+    fun filtering(genre: String) {
         try {
-            selectedPosition = pos
+            _selectedGenre = genre
             if (genre.isNotEmpty()) {
-                currentFilter = genre
                 val filmsByFilter = _filmsOriginal.filter { it.genres.contains(genre) }
                 _films.value = if (filmsByFilter.isNotEmpty()) {
                     FilmState.Success(filmsByFilter)

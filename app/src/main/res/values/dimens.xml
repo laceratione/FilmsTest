@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="corner_radius">4dp</dimen>
+    <dimen name="item_padding_card_films_8dp">8dp</dimen>
+    <dimen name="item_edge_padding_recycler_view_films_16dp">16dp</dimen>
 </resources>
