@@ -1,24 +1,14 @@
-package ru.example.kolsatest.presentation
+package ru.example.kolsatest.presentation.filmlist
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import ru.example.kolsatest.databinding.ListItemFilmBinding
 import ru.example.kolsatest.databinding.ListItemGenreBinding
 import ru.example.kolsatest.databinding.ListItemHeaderBinding
 import ru.example.kolsatest.domain.model.Film
-import ru.example.kolsatest.presentation.filmlist.FilmDiffUtil
-import ru.example.kolsatest.presentation.filmlist.FilmHolder
-import ru.example.kolsatest.presentation.filmlist.GenreDiffUtil
-import ru.example.kolsatest.presentation.filmlist.GenreHolder
-import ru.example.kolsatest.presentation.filmlist.HeaderDiffUtil
-import ru.example.kolsatest.presentation.filmlist.HeaderHolder
-
-//import ru.example.kolsatest.presentation.filmlist.FilmAdapter
-//import ru.example.kolsatest.presentation.filmlist.GenreAdapter
 
 class MainAdapter(
     private val onGenreClick: (String) -> Unit,
@@ -33,7 +23,7 @@ class MainAdapter(
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             HEADER_TYPE -> {
                 val binding = ListItemHeaderBinding.inflate(
@@ -66,7 +56,7 @@ class MainAdapter(
         }
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (val item: MainListItem = getItem(position)) {
             is MainListItem.HeaderItem -> (holder as HeaderHolder).bind(item.text)
             is MainListItem.GenreItem -> (holder as GenreHolder).bind(

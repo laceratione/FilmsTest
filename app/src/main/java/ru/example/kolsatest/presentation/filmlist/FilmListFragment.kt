@@ -1,7 +1,6 @@
 package ru.example.kolsatest.presentation.filmlist
 
 import android.os.Bundle
-import android.os.Parcelable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -23,10 +22,6 @@ import kotlinx.coroutines.launch
 import ru.example.kolsatest.R
 import ru.example.kolsatest.databinding.FragmentFilmListBinding
 import ru.example.kolsatest.domain.model.Film
-import ru.example.kolsatest.presentation.MainAdapter
-import ru.example.kolsatest.presentation.MainAdapter.Companion.FILM_TYPE
-import ru.example.kolsatest.presentation.MainAdapter.Companion.GENRE_TYPE
-import ru.example.kolsatest.presentation.MainAdapter.Companion.HEADER_TYPE
 import ru.example.kolsatest.presentation.mapper.FilmListMapperImpl
 
 private const val TAG = "FilmListFragment"
@@ -34,28 +29,11 @@ private const val TAG = "FilmListFragment"
 @AndroidEntryPoint
 class FilmListFragment : Fragment() {
     private val viewModel: FilmListViewModel by viewModels()
-    private var binding: FragmentFilmListBinding? = null
+    private var _binding: FragmentFilmListBinding? = null
+    private val binding get() = _binding!!
 
-    private var mainAdapter: MainAdapter? = null
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentFilmListBinding.inflate(inflater, container, false)
-        return binding?.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        setupMainRecyclerView()
-        observeUiState()
-    }
-
-    private fun setupMainRecyclerView() {
-        mainAdapter = MainAdapter(
+    private val mainAdapter by lazy {
+        MainAdapter(
             onGenreClick = { genre ->
                 val newSelectedGenre = if (viewModel.selectedGenre == genre) "" else genre
                 viewModel.filtering(newSelectedGenre)
@@ -65,30 +43,52 @@ class FilmListFragment : Fragment() {
                     FilmListFragmentDirections.actionFilmListFragmentToFilmDetailsFragment(film)
                 findNavController().navigate(action)
             })
+    }
 
-
-        binding?.rvMain?.adapter = mainAdapter
-        binding?.rvMain?.layoutManager = GridLayoutManager(requireContext(), 2).apply {
+    private fun createLayoutManager(): GridLayoutManager {
+        return GridLayoutManager(requireContext(), 2).apply {
             spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                 override fun getSpanSize(position: Int): Int {
                     if (position == RecyclerView.NO_POSITION) return 1
 
-                    return when (mainAdapter!!.getItemViewType(position)) {
-                        HEADER_TYPE -> spanCount
-                        GENRE_TYPE -> spanCount
-                        FILM_TYPE -> 1
+                    return when (mainAdapter.getItemViewType(position)) {
+                        MainAdapter.HEADER_TYPE -> spanCount
+                        MainAdapter.GENRE_TYPE -> spanCount
+                        MainAdapter.FILM_TYPE -> 1
                         else -> throw IllegalArgumentException(
                             "Unknown view type: ${
-                                mainAdapter!!.getItemViewType(
+                                mainAdapter.getItemViewType(
                                     position
                                 )
                             }"
                         )
                     }
                 }
-
             }
         }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = FragmentFilmListBinding.inflate(inflater, container, false)
+
+        setupMainRecyclerView()
+        observeUiState()
+
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun setupMainRecyclerView() {
+        binding.rvMain.layoutManager = createLayoutManager()
+        binding.rvMain.adapter = mainAdapter
     }
 
     private fun observeUiState() {
@@ -107,9 +107,7 @@ class FilmListFragment : Fragment() {
     }
 
     private fun showFilms(films: List<Film>) {
-        binding?.progressBar?.visibility = View.GONE
-//        binding?.tvFilms?.visibility = View.VISIBLE
-//        binding?.tvGenres?.visibility = View.VISIBLE
+        binding.progressBar.visibility = View.GONE
 
         val items = FilmListMapperImpl.map(
             genresTitle = getString(R.string.genres),
@@ -119,7 +117,7 @@ class FilmListFragment : Fragment() {
             films = films,
         )
 
-        mainAdapter?.submitList(items)
+        mainAdapter.submitList(items)
     }
 
     private fun showToast(message: String) {
@@ -146,17 +144,17 @@ class FilmListFragment : Fragment() {
     }
 
     private fun showError(message: String?) {
-        binding?.progressBar?.visibility = View.GONE
+        binding.progressBar.visibility = View.GONE
         message?.let { Log.e(TAG, "Films list load error: $it") }
         showSnackBar()
     }
 
     private fun showLoading() {
-        binding?.progressBar?.visibility = View.VISIBLE
+        binding.progressBar.visibility = View.VISIBLE
     }
 
     private fun showEmptyData() {
-        mainAdapter?.submitList(emptyList())
+        mainAdapter.submitList(emptyList())
         showToast(getString(R.string.no_results_search))
     }
 }

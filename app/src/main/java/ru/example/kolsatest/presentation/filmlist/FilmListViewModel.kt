@@ -1,6 +1,5 @@
 package ru.example.kolsatest.presentation.filmlist
 
-import android.os.Parcelable
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,7 +10,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import ru.example.kolsatest.domain.model.Film
 import ru.example.kolsatest.domain.repository.FilmRepository
-import ru.example.kolsatest.presentation.mapper.FilmListMapper
 import javax.inject.Inject
 
 private const val TAG = "FilmListViewModel"

@@ -7,10 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import dagger.hilt.android.AndroidEntryPoint
 import ru.example.kolsatest.R
 import ru.example.kolsatest.databinding.FragmentFilmDetailsBinding
@@ -20,13 +20,15 @@ private const val TAG = "FilmDetailsFragment"
 
 @AndroidEntryPoint
 class FilmDetailsFragment : Fragment() {
-    private val viewModel: FilmDetailsViewModel by viewModels()
     private val args: FilmDetailsFragmentArgs by navArgs()
-    private var binding: FragmentFilmDetailsBinding? = null
+    private var _binding: FragmentFilmDetailsBinding? = null
+    private val binding get() = _binding!!
+    private var film: Film? = null
+    private val ratingFormat = "%.1f"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.setWorkout(args.film)
+        film = args.film
     }
 
     override fun onCreateView(
@@ -34,8 +36,8 @@ class FilmDetailsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentFilmDetailsBinding.inflate(inflater, container, false)
-        return binding?.root
+        _binding = FragmentFilmDetailsBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,16 +45,28 @@ class FilmDetailsFragment : Fragment() {
         setupView()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     private fun setupView() {
         try {
-            binding?.apply {
-                viewModel.film?.let {
+            binding.apply {
+                film?.let {
                     loadImage(it.imageUrl, imageView)
                     tvTitle.setText(it.localizedName)
                     tvGenreAndYear.setText(getGenreAndYear(it))
 
-                    val sRating = viewModel.getRating(it.rating)
-                    sRating?.let { tvRatingValue.setText(getString(R.string.rating_format, sRating)) } ?: run {
+                    val sRating = getRating(it.rating)
+                    sRating?.let {
+                        tvRatingValue.setText(
+                            getString(
+                                R.string.rating_format,
+                                sRating
+                            )
+                        )
+                    } ?: run {
                         llRating.visibility = View.GONE
                     }
                     it.description?.let { desc -> tvDescription.setText(desc) } ?: run {
@@ -66,11 +80,23 @@ class FilmDetailsFragment : Fragment() {
     }
 
     private fun loadImage(imageUrl: String?, imageView: ImageView) {
-        Glide.with(requireContext())
+        Glide.with(binding.root)
             .load(imageUrl)
+            .transition(DrawableTransitionOptions.withCrossFade(300))
             .error(R.drawable.placeholder_image)
+            .placeholder(R.drawable.placeholder_image)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .thumbnail(
+                Glide.with(binding.root)
+                    .load(imageUrl)
+                    .override(80, 80)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+            )
             .into(imageView)
+    }
+
+    private fun getRating(rating: Float?): String? {
+        return rating?.let { ratingFormat.format(it).replaceFirst(",", ".") }
     }
 
     private fun getGenreAndYear(film: Film): String {

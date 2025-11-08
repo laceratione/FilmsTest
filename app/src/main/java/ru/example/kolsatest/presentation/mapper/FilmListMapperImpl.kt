@@ -2,7 +2,7 @@ package ru.example.kolsatest.presentation.mapper
 
 import okhttp3.internal.toImmutableList
 import ru.example.kolsatest.domain.model.Film
-import ru.example.kolsatest.presentation.MainListItem
+import ru.example.kolsatest.presentation.filmlist.MainListItem
 
 object FilmListMapperImpl : FilmListMapper {
     override fun map(

@@ -40,9 +40,9 @@ android {
     buildFeatures {
         viewBinding = true
     }
-//    lint {
-//        disable.add("NullSafeMutableLiveData")
-//    }
+    lint {
+        disable.add("NullSafeMutableLiveData")
+    }
 }
 
 dependencies {

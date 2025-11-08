@@ -1,7 +1,7 @@
 package ru.example.kolsatest.presentation.mapper
 
 import ru.example.kolsatest.domain.model.Film
-import ru.example.kolsatest.presentation.MainListItem
+import ru.example.kolsatest.presentation.filmlist.MainListItem
 
 interface FilmListMapper {
     fun map(

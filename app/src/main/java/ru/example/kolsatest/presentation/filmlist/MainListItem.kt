@@ -1,4 +1,4 @@
-package ru.example.kolsatest.presentation
+package ru.example.kolsatest.presentation.filmlist
 
 import ru.example.kolsatest.domain.model.Film
 

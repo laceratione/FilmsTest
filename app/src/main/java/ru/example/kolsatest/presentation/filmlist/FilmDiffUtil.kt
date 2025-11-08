@@ -1,7 +1,7 @@
 package ru.example.kolsatest.presentation.filmlist
 
 import androidx.recyclerview.widget.DiffUtil
-import ru.example.kolsatest.presentation.MainListItem.FilmItem
+import ru.example.kolsatest.presentation.filmlist.MainListItem.FilmItem
 
 class FilmDiffUtil : DiffUtil.ItemCallback<FilmItem>() {
     override fun areItemsTheSame(
