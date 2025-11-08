@@ -89,6 +89,13 @@ class FilmListFragment : Fragment() {
     private fun setupMainRecyclerView() {
         binding.rvMain.layoutManager = createLayoutManager()
         binding.rvMain.adapter = mainAdapter
+        binding.rvMain.addItemDecoration(
+            FilmListItemDecoration(
+                2,
+                resources.getDimensionPixelSize(R.dimen.out_spacing_films),
+                resources.getDimensionPixelSize(R.dimen.spacing_between_column),
+            )
+        )
     }
 
     private fun observeUiState() {
